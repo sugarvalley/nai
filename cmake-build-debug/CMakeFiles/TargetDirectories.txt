@@ -1,3 +1,5 @@
-C:/Users/s22202/CLionProjects/nai/cmake-build-debug/CMakeFiles/nai.dir
-C:/Users/s22202/CLionProjects/nai/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/s22202/CLionProjects/nai/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/Cukier/CLionProjects/nai/cmake-build-debug/CMakeFiles/nai.dir
+C:/Users/Cukier/CLionProjects/nai/cmake-build-debug/CMakeFiles/lab1_main.dir
+C:/Users/Cukier/CLionProjects/nai/cmake-build-debug/CMakeFiles/main.dir
+C:/Users/Cukier/CLionProjects/nai/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Cukier/CLionProjects/nai/cmake-build-debug/CMakeFiles/rebuild_cache.dir
