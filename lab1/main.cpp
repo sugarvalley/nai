@@ -6,33 +6,27 @@
 #include <cmath>
 
 using namespace std;
-using mojafunkcja = function<float(int x, int y)>;
+using mojafunkcja = function<double(vector<double>)>;
 
-void wypisz(const mojafunkcja& fun, int x, int y=0) {
-    cout << fun(x, y) << endl;
+void wypisz(vector<double> liczby, mojafunkcja fun) {
+    cout << fun(liczby) << endl;
 }
 
 int main(int argc, char **argv) {
-    vector<string> argumenty(argv, argc + argv);
     map<string, mojafunkcja> opcje;
-    opcje["add"] = [](int x, int y) { return x + y; };
-    opcje["mod"] = [](int x, int y) { return x % y; };
-    opcje["sin"] = [](int x, int y=0) { return sin(x); };
+    opcje["add"] = [](vector<double> liczby) { return liczby.front() + liczby.back(); };
+    opcje["mod"] = [](vector<double> liczby) { return (int)liczby.front() % (int)liczby.back(); };
+    opcje["sin"] = [](vector<double> liczby) { return sin(liczby.front()); };
         try {
-            if(argumenty.at(1) == "sin"){
-                wypisz(opcje[argumenty.at(1)], stoi(argumenty.at(2)));
-            } else if (argumenty.at(1) == "add" || argumenty.at(1) == "mod") {
-                wypisz(opcje[argumenty.at(1)], stoi(argumenty.at(2)), stoi(argumenty.at(3)));
-            } else {
-                cout << "Wybierz opcje, dostepne to: " << endl;
-                for (auto [k, v] : opcje) cout << " " << k;
-                cout << endl;
-                }
-
+            vector<string> argumenty(argv, argc + argv);
+            auto selected_f = argumenty.at(1);
+            vector<double> numbers = {{stod(argumenty.at(2)), stod(argumenty.back())}};
+            wypisz(numbers, opcje.at(selected_f));
             } catch (out_of_range aor) {
                     cout << "Wybierz opcje, dostepne to: " << endl;
                     for (auto [k, v] : opcje) cout << " " << k;
                     cout << endl;
+            return 1;
             }
     return 0;
 }
