@@ -8,18 +8,24 @@ using f = function<double(double, double)>;
 random_device rd;
 mt19937 mt_generator(rd());
 
-double opti(f function, vector<double> domain, int max_iterations) {
+auto opti(f function, vector<double> domain, int max_iterations) {
     uniform_real_distribution<double> dist(domain.at(0), domain.at(1));
     double best = function(domain.at(0), domain.at(1));
+    vector<double> dom;
     for (int iteration = 0; iteration < max_iterations; iteration++) {
         double r1 = dist(mt_generator);
         double r2 = dist(mt_generator);
         double temp = function(r1, r2);
         if (temp < best) {
             best = temp;
+            dom = {r1, r2};
         }
     }
-    return best;
+    return dom;
+}
+void printer(vector<double> arguments) {
+    cout << "x: " << arguments.at(0) << endl;
+    cout << "y: " << arguments.at(1) << endl;
 }
 
 int main() {
@@ -38,8 +44,11 @@ int main() {
                 (pow((y - 1), 2)*(1 + pow((sin((2*M_PI*y))),2))));
     };
 
-    cout<<"Matyas function best min:    "<< opti(matyas, {-10.0, 10.0},10000)<<endl;
-    cout<<"Booth function best min:     "<< opti(booth, {-10.0, 10.0},10000)<<endl;
-    cout<<"Levi function N.13 best min: "<< opti(levi, {-10.0, 10.0},10000)<<endl;
+    cout << "Matyas best value:" << endl;
+    printer(opti(matyas, {-10.0, 10.0},10000));
+    cout << "Booth best value:" << endl;
+    printer(opti(booth, {-10.0, 10.0},10000));
+    cout << "Levi best value:" << endl;
+    printer(opti(levi, {-10.0, 10.0},10000));
     return 0;
 }
