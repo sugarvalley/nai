@@ -8,7 +8,7 @@ using f = function<double(double, double)>;
 random_device rd;
 mt19937 mt_generator(rd());
 
-auto opti(f function, vector<double> domain, int max_iterations) {
+auto climb(f function, vector<double> domain, int max_iterations) {
     uniform_real_distribution<double> dist(domain.at(0), domain.at(1));
     double best = function(domain.at(0), domain.at(1));
     vector<double> dom;
@@ -45,10 +45,10 @@ int main() {
     };
 
     cout << "Matyas best value:" << endl;
-    printer(opti(matyas, {-10.0, 10.0},10000));
+    printer(climb(matyas, {-10.0, 10.0}, 10000));
     cout << "Booth best value:" << endl;
-    printer(opti(booth, {-10.0, 10.0},10000));
+    printer(climb(booth, {-10.0, 10.0}, 10000));
     cout << "Levi best value:" << endl;
-    printer(opti(levi, {-10.0, 10.0},10000));
+    printer(climb(levi, {-10.0, 10.0}, 10000));
     return 0;
 }
