@@ -74,7 +74,7 @@ auto anneal(f function,vector<double> domain, int max_iterations) {
         double r2 = dom(mt_generator);
 
         if (function(r1, r2) < function(s, s2)) {
-            s =  function(r1, r2);
+            s =  function(r1, r2); //sk = tk
             resultpair = {r1, r2};
             myvec.push_back(s);
         } else {
@@ -86,6 +86,7 @@ auto anneal(f function,vector<double> domain, int max_iterations) {
         }
 
     }
+
 
     for(int j=0;myvec.size()>j;j++) {
         if (myvec[j] < s) {
@@ -115,6 +116,10 @@ int main() {
                 (pow((y - 1), 2)*(1 + pow((sin((2*M_PI*y))),2))));
     };
 
+    auto cross = [](double x, double y) {
+        return -0.0001*(pow((fabs(sin(x)*sin(y)*exp(fabs(100-(sqrt(pow(x,2)+pow(y,2)))/M_PI))+1)),0.1));
+    };
+
     cout << "ANNEAL: " << endl;
     cout << "Matyas best value:" << endl;
     printer(anneal(matyas, {-10.0, 10.0}, 100000));
@@ -122,6 +127,8 @@ int main() {
     printer(anneal(booth, {-10.0, 10.0}, 100000));
     cout << "Levi best value:" << endl;
     printer(anneal(levi, {-10.0, 10.0}, 100000));
+    cout << "Cross best value:" << endl;
+    printer(anneal(cross, {-10.0, 10.0}, 100000));
 
     cout << " " << endl;
     cout << "CLIMB: " << endl;
@@ -131,6 +138,8 @@ int main() {
     printer(climb(booth, {-10.0, 10.0}, 100000));
     cout << "Levi best value:" << endl;
     printer(climb(levi, {-10.0, 10.0}, 100000));
+    cout << "Cross best value:" << endl;
+    printer(climb(cross, {-10.0, 10.0}, 100000));
     cout << " " << endl;
 
     cout << "BRUTE: " << endl;
@@ -140,5 +149,7 @@ int main() {
     printer(brute(booth, {-10.0, 10.0}, 100000));
     cout << "Levi best value:" << endl;
     printer(brute(levi, {-10.0, 10.0}, 100000));
+    cout << "Cross best value:" << endl;
+    printer(brute(cross, {-10.0, 10.0}, 100000));
     return 0;
 }

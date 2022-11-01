@@ -10,8 +10,9 @@ add_executable(nai
         lab2/lab2.cpp
         lab3/lab3.cpp lab3/lab3.h)
 
-add_executable(lab1_main lab1/main.cpp lab3/lab3.cpp lab3/lab3.h)
+add_executable(lab1_main lab1/main.cpp lab3/lab3.cpp lab3/lab3.h lab4/lab4.cpp lab4/lab4.h)
 add_executable(lab2_lab2 lab2/lab2.cpp)
 add_executable(main lab1/main.cpp)
 add_executable(lab2 lab2/lab2.cpp)
 add_executable(lab3 lab3/lab3.cpp)
+add_executable(lab4 lab4/lab4.cpp)
