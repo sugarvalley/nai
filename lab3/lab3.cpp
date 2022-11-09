@@ -58,43 +58,39 @@ void printer(vector<double> arguments) {
 
 
 auto anneal(f function,vector<double> domain, int max_iterations) {
-
     uniform_real_distribution<double> uk(0, 1);
     uniform_real_distribution<double> dom(domain.at(0),domain.at(1));
     double u = uk(mt_generator);
-    double s = function(domain.at(0),domain.at(1));
+    double s1 = function(domain.at(0), domain.at(1));
     double s2 = function(domain.at(0),domain.at(1));
     vector<double> myvec;
-
     vector<double> resultpair;
-    myvec.push_back(s);
-
+    myvec.push_back(s1);
+    double t1 = dom(mt_generator);
+    double t2 = dom(mt_generator);
     for (int i = 0; i < max_iterations; ++i) {
-        double r1 = dom(mt_generator);
-        double r2 = dom(mt_generator);
-
-        if (function(r1, r2) < function(s, s2)) {
-            s =  function(r1, r2); //sk = tk
-            resultpair = {r1, r2};
-            myvec.push_back(s);
+        normal_distribution<double> dom1(t1, 0.1);
+        normal_distribution<double> dom2(t2, 0.1);
+        t1 = dom1(mt_generator);
+        t2 = dom2(mt_generator);
+        if (function(t1, t2) < function(s1, s2)) {
+            s1 =  function(t1, t2); //sk = tk
+            resultpair = {t1, t2};
+            myvec.push_back(s1);
         } else {
-            if (u < exp(-(fabs(function(r1, r2) - function(s, s2)) / ((1 / log(i)))))) {
-                s =  function(r1, r2);
-                resultpair = {r1, r2};
-                myvec.push_back(s);
+            if (u < exp(-(fabs(function(t1, t2) - function(s1, s2)) / ((1 / log(i)))))) {
+                s1 =  function(t1, t2);
+                resultpair = {t1, t2};
+                myvec.push_back(s1);
             }
         }
-
     }
-
-
     for(int j=0;myvec.size()>j;j++) {
-        if (myvec[j] < s) {
-            s = myvec[j];
+        if (myvec[j] < s1) {
+            s1 = myvec[j];
         }
-
     }
-    cout << s << endl;
+    cout << s1 << endl;
     return resultpair;
 }
 
