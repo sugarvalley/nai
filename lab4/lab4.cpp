@@ -37,22 +37,16 @@ pair<double, double> geno_feno(chromosome_t chromosome){
     bool minusY = false;
     if(chromosome.at(1)==1)minusY=true;
     int splitter = chromosome.size() / 2;
-    int j = 6;
     for(int i=splitter; i > 1; i--){
-        result.first += (chromosome.at(i) * pow(2,i)) * sqrt(j);
-        j+=9;
+        result.first += (chromosome.at(i) * pow(2,i));
     }
-    j = 9;
     for (int i = chromosome.size()-1; i > splitter; i--) {
-        result.second += (chromosome.at(i) * pow(2,i)) * sqrt(j);
-        j+=6;
+        result.second += (chromosome.at(i) * pow(i,2));
     }
-
     if(minusX){ result.first*=-1;}
     if(minusY){ result.second*=-1;}
-    result.first = result.first/1000000000000000;
-    result.second = result.second/1000000000000000;
-    result.second = result.second/1000000000000000;
+    result.first = result.first/100000000000000;
+    result.second = result.second/10000;
 
     cout << "x: "<< result.first << endl;
     cout << "y: "<< result.second << endl;
@@ -68,11 +62,11 @@ vector<double> fitness_function(population_t pop, f function, vector<double> dom
             result.push_back(666666 - function(currPair));
         }
         else {
-            result.push_back(0 + function(currPair));
+            result.push_back(10 + function(currPair));
         }
     }
     for (double p: result) {
-        if(p>3){
+        if(p>20){
             cout << p << endl;
         }
     }
