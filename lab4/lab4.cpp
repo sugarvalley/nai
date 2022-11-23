@@ -9,6 +9,9 @@
 #include <functional>
 #include <random>
 #include <map>
+#include <chrono>
+#include <math.h>
+
 
 using namespace std;
 random_device rd;
@@ -48,28 +51,8 @@ pair<double, double> geno_feno(chromosome_t chromosome){
     result.first = result.first/100000000000000;
     result.second = result.second/10000;
 
-    cout << "x: "<< result.first << endl;
-    cout << "y: "<< result.second << endl;
-    return result;
-}
-
-vector<double> fitness_function(population_t pop, f function, vector<double> domain, double goal){
-    vector<double> result;
-    pair <double, double> currPair;
-    for (int i = 0; i < pop.size(); i++){
-        currPair = geno_feno(pop.at(i));
-        if (currPair.first > domain.at(0) && currPair.first < domain.at(1) && currPair.second > domain.at(0) && currPair.second < domain.at(1)){
-            result.push_back(666666 - function(currPair));
-        }
-        else {
-            result.push_back(10 + function(currPair));
-        }
-    }
-    for (double p: result) {
-        if(p>20){
-            cout << p << endl;
-        }
-    }
+//    cout << "x: "<< result.first << endl;
+//    cout << "y: "<< result.second << endl;
     return result;
 }
 
@@ -101,17 +84,83 @@ auto genetic_algorithm = [](
     }
     return population;
 };
+
+vector<double> fitness_function(population_t pop, f function, vector<double> domain, double goal){
+    vector<double> result;
+    pair <double, double> currPair;
+    for (int i = 0; i < pop.size(); i++){
+        currPair = geno_feno(pop.at(i));
+        if (currPair.first > domain.at(0) && currPair.first < domain.at(1) && currPair.second > domain.at(0) && currPair.second < domain.at(1)){
+            result.push_back(666666 - function(currPair));
+        }
+        else {
+            result.push_back(10 + function(currPair));
+        }
+    }
+    int goodBoys = 0;
+    for (double p: result) {
+        if(p>20){
+            goodBoys++;
+            cout << p << endl;
+        }
+    }
+    cout << "Good count:" << goodBoys;
+    return result;
+}
+
+
 using chromosome_t = vector<int>;
 using population_t = vector<chromosome_t>;
 
 vector<int> selection_empty(std::vector<double> fitnesses) {
-    return {};
+    uniform_real_distribution<> randomNumb(0.0,1.0);
+    double R = randomNumb(mt_generator);
+    double S = 0;
+    double P = 0;
+    double lastP = 0;
+    for (double elem : fitnesses){
+        S += elem;
+    }
+    double p = 0;
+//    cout << P;
+    std::vector<int> resVector;
+    for (int i = 0; i < fitnesses.size(); i++) {
+        p = fitnesses.at(i) / S;
+        P = lastP + p;
+//        cout << P;
+        if(lastP <= R && lastP <= P){
+            resVector.push_back(i);
+//            cout<<"done";
+        }
+        lastP = P;
+    }
+    return resVector;
 }
 vector<chromosome_t > crossover_empty(std::vector<chromosome_t > parents) {
+    uniform_real_distribution<double> randomPoint(0,parents.at(0).size());
+    int swapPoint = randomPoint(mt_generator);
+    for (int i = swapPoint; i < parents.at(0).size(); i++) {
+        int temp = parents.at(0).at(i);
+        parents.at(0).at(i) = parents.at(1).at(i);
+        parents.at(1).at(i) = temp;
+    }
     return parents;
 }
-chromosome_t mutation_empty(chromosome_t parents, double p_mutation) {
-    return parents;
+chromosome_t mutation_empty(chromosome_t parent, double p_mutation) {
+    uniform_real_distribution<> randomNumb(0.0,1.0);
+    uniform_real_distribution<> randomCount(0, 5);
+    uniform_real_distribution<> randomPoint(0, parent.size());
+    if(randomNumb(mt_generator) < p_mutation){
+        for (int i = 0; i < randomCount(mt_generator); i++) {
+            int currPoint = randomPoint(mt_generator);
+            if (parent.at(currPoint) == 0){
+                parent.at(currPoint) = 1;
+            } else{
+                parent.at(currPoint) = 0;
+            }
+        }
+    }
+    return parent;
 }
 int main() {
 
@@ -124,16 +173,21 @@ int main() {
 
     auto result = genetic_algorithm(population,
                                     fitness_function,
-                                    [](auto a, auto b) { return true; },
+                                    [](auto a, auto b) {  for (auto elem: b) {
+                                        if(elem > 1000){
+                                            return true;
+                                        }
+                                    };
+                                        return false; },
                                     selection_empty, 1.0,
                                     crossover_empty,
                                     0.01, mutation_empty, cross, {-10, 10}, -2.06261);
     for (chromosome_t chromosome: result) {
-//        cout << "[";
-//        for (int p: chromosome) {
-//            cout << p;
-//        }
-//        cout << "] ";
+        cout << "[";
+        for (int p: chromosome) {
+            cout << p;
+        }
+        cout << "] ";
     }
     cout << endl;
     return 0;
