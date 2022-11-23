@@ -112,7 +112,7 @@ vector<double> fitness_function(population_t pop, f function, vector<double> dom
 using chromosome_t = vector<int>;
 using population_t = vector<chromosome_t>;
 
-vector<int> selection_empty(std::vector<double> fitnesses) {
+vector<int> selection(std::vector<double> fitnesses) {
     uniform_real_distribution<> randomNumb(0.0,1.0);
     double R = randomNumb(mt_generator);
     double S = 0;
@@ -133,7 +133,7 @@ vector<int> selection_empty(std::vector<double> fitnesses) {
     }
     return resVector;
 }
-vector<chromosome_t > crossover_empty(std::vector<chromosome_t > parents) {
+vector<chromosome_t > crossover(std::vector<chromosome_t > parents) {
     uniform_real_distribution<double> randomPoint(0,parents.at(0).size());
     int swapPoint = randomPoint(mt_generator);
     for (int i = swapPoint; i < parents.at(0).size(); i++) {
@@ -143,14 +143,17 @@ vector<chromosome_t > crossover_empty(std::vector<chromosome_t > parents) {
     }
     return parents;
 }
-chromosome_t mutation_empty(chromosome_t parent, double p_mutation) {
+chromosome_t mutation(chromosome_t parent, double p_mutation) {
     uniform_real_distribution<> randomNumb(0.0,1.0);
         for (int i = 0; i < parent.size(); i++) {
-            if (parent.at(i) == 0){
-                parent.at(i) = 1;
-            } else{
-                parent.at(i) = 0;
+            if ( randomNumb(mt_generator) > p_mutation) {
+                if (parent.at(i) == 0){
+                    parent.at(i) = 1;
+                } else{
+                    parent.at(i) = 0;
+                }
             }
+
         }
     return parent;
 }
@@ -163,25 +166,27 @@ int main() {
 
     population_t population = populate(10000, 100+(22202%10)*2);
 
-    auto result = genetic_algorithm(population,
-                                    fitness_function,
-                                    [](auto a, auto b) {  for (auto elem: b) {
-                                        if(elem >= 666665.999){
-                                            cout << endl << 666666 - elem;
-                                            return true;
-                                        }
-                                    };
-                                        return false; },
-                                    selection_empty, 1.0,
-                                    crossover_empty,
-                                    0.05, mutation_empty, cross, {-10, 10}, -2.06261);
-    for (chromosome_t chromosome: result) {
+    population = genetic_algorithm(population,
+                                   fitness_function,
+                                   [](auto a, auto b) {
+                                       for (auto elem: b) {
+                                           if (elem >= 666665.999) {
+                                               cout << endl << 666666 - elem;
+                                               return true;
+                                           }
+                                       };
+                                       return false;
+                                   },
+                                   selection, 1.0,
+                                   crossover,
+                                   0.05, mutation, cross, {-10, 10}, -2.06261);
+//    for (chromosome_t chromosome: result) {
 //        cout << "[";
 //        for (int p: chromosome) {
 //            cout << p;
 //        }
-//        cout << "] ";
-    }
+////        cout << "] ";
+//    }
     cout << endl;
     return 0;
 
