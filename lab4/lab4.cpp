@@ -122,15 +122,12 @@ vector<int> selection_empty(std::vector<double> fitnesses) {
         S += elem;
     }
     double p = 0;
-//    cout << P;
     std::vector<int> resVector;
     for (int i = 0; i < fitnesses.size(); i++) {
         p = fitnesses.at(i) / S;
         P = lastP + p;
-//        cout << P;
         if(lastP <= R && lastP <= P){
             resVector.push_back(i);
-//            cout<<"done";
         }
         lastP = P;
     }
@@ -148,18 +145,13 @@ vector<chromosome_t > crossover_empty(std::vector<chromosome_t > parents) {
 }
 chromosome_t mutation_empty(chromosome_t parent, double p_mutation) {
     uniform_real_distribution<> randomNumb(0.0,1.0);
-    uniform_real_distribution<> randomCount(0, 5);
-    uniform_real_distribution<> randomPoint(0, parent.size());
-    if(randomNumb(mt_generator) < p_mutation){
-        for (int i = 0; i < randomCount(mt_generator); i++) {
-            int currPoint = randomPoint(mt_generator);
-            if (parent.at(currPoint) == 0){
-                parent.at(currPoint) = 1;
+        for (int i = 0; i < parent.size(); i++) {
+            if (parent.at(i) == 0){
+                parent.at(i) = 1;
             } else{
-                parent.at(currPoint) = 0;
+                parent.at(i) = 0;
             }
         }
-    }
     return parent;
 }
 int main() {
@@ -174,20 +166,21 @@ int main() {
     auto result = genetic_algorithm(population,
                                     fitness_function,
                                     [](auto a, auto b) {  for (auto elem: b) {
-                                        if(elem > 1000){
+                                        if(elem >= 666665.999){
+                                            cout << endl << 666666 - elem;
                                             return true;
                                         }
                                     };
                                         return false; },
                                     selection_empty, 1.0,
                                     crossover_empty,
-                                    0.01, mutation_empty, cross, {-10, 10}, -2.06261);
+                                    0.05, mutation_empty, cross, {-10, 10}, -2.06261);
     for (chromosome_t chromosome: result) {
-        cout << "[";
-        for (int p: chromosome) {
-            cout << p;
-        }
-        cout << "] ";
+//        cout << "[";
+//        for (int p: chromosome) {
+//            cout << p;
+//        }
+//        cout << "] ";
     }
     cout << endl;
     return 0;
