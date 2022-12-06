@@ -247,6 +247,9 @@ CMAKE_STRIP:FILEPATH=C:/Program Files/JetBrains/CLion 2021.3.3/bin/mingw/bin/str
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
+//The directory containing a CMake configuration file for OpenCV.
+OpenCV_DIR:PATH=OpenCV_DIR-NOTFOUND
+
 //Value Computed by CMake
 nai_BINARY_DIR:STATIC=C:/Users/Cukier/CLionProjects/nai/cmake-build-debug
 
@@ -255,6 +258,15 @@ nai_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
 nai_SOURCE_DIR:STATIC=C:/Users/Cukier/CLionProjects/nai
+
+//Value Computed by CMake
+ocvdemo_BINARY_DIR:STATIC=C:/Users/Cukier/CLionProjects/nai/cmake-build-debug
+
+//Value Computed by CMake
+ocvdemo_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+ocvdemo_SOURCE_DIR:STATIC=C:/Users/Cukier/CLionProjects/nai
 
 
 ########################
@@ -423,6 +435,8 @@ CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 CMAKE_STRIP-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
+//Details about finding OpenCV
+FIND_PACKAGE_MESSAGE_DETAILS_OpenCV:INTERNAL=[C:/Users/Cukier/Documents/repo/opencv-4.x/cmake-build-release][v4.6.0()]
 //linker supports push/pop state
 _CMAKE_LINKER_PUSHPOP_STATE_SUPPORTED:INTERNAL=TRUE
 
