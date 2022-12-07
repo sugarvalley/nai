@@ -38,11 +38,6 @@ double findStandardDeviation(vector<double> numbers) {
     return sqrt(sDeviation/numbers.size());
 }
 
-void printer(vector<int>(x) ) {
-    cout << "x: " << x.at(0) << endl;
-    cout << "y: " << x.at(1) << endl;
-}
-
 population_t populate(int popSize, int chromSize){
     srand(time(nullptr));
     population_t population;
@@ -94,8 +89,8 @@ pair<double, double> geno_feno(chromosome_t chromosome){
     }
     if(minusX){ result.first*=-1;}
     if(minusY){ result.second*=-1;}
-    result.first = result.first/100000000000000;
-    result.second = result.second/10000;
+    result.first = result.first/1000000000000000;
+    result.second = result.second/15000;
 
 //    cout << "x: "<< result.first << endl;
 //    cout << "y: "<< result.second << endl;
@@ -159,30 +154,43 @@ vector<double> fitness_function(population_t pop, f function, vector<double> dom
 }
 
 vector<int> selection(vector<double> fitnesses) {
-    double S = 0;
-    double P = 0;
-    double lastP = 0;
-    for (double elem : fitnesses){
-        S += elem;
+    double sumF = 0;
+
+    for (double elem : fitnesses) {
+        sumF += elem;
     }
-    uniform_real_distribution<> randomNumb(0.0,S);
-    double R = randomNumb(mt_generator);
-    double p = 0;
-    vector<int> resVector;
-    for (int i = 0; i < fitnesses.size(); i++) {
-        p = fitnesses.at(i);
-        if (R > p && p <= R) {
-            resVector.push_back(i);
-        }
-        p = fitnesses.at(i) / S;
-        P = lastP + p;
-        if(lastP <= R && lastP <= P){
-            resVector.push_back(i);
-        }
-        lastP = P;
+
+    double previousProbability = 0;
+    double probabilitySum = 0;
+    vector<double> probabilityArray;
+
+    for(int i = 0; i < fitnesses.size(); i++){
+        double probability = fitnesses.at(i) / sumF;
+        probabilityArray.push_back(probability);
+        probabilitySum += probability;
     }
+
+    uniform_real_distribution<> randomNumb(0.0,probabilitySum);
+    std::vector<int> resVector;
+
+    while (resVector.size() < fitnesses.size()){
+        double number = randomNumb(mt_generator);
+        for(int i = 0; i < probabilityArray.size()-1; i++){
+            if (number > probabilityArray.at(i) && number < probabilityArray.at(i+1)){
+                resVector.push_back(i);
+                if(resVector.size() >= fitnesses.size()){
+                    break;
+                }
+            }
+            if(resVector.size() >= fitnesses.size()){
+                break;
+            }
+        }
+    }
+
     return resVector;
 }
+
 vector<chromosome_t > crossover(vector<chromosome_t > parents) {
     uniform_real_distribution<double> randomPoint(0,parents.at(0).size());
     int swapPoint = randomPoint(mt_generator);
@@ -210,8 +218,8 @@ chromosome_t mutation(chromosome_t parent, double p_mutation) {
 int main(int argc, char *argv[]) {
     int popSize = 1000;
     int iterCount = 1000;
-    double crossChance = 0;
-    double mutateChance = 0;
+    double crossChance = 0.5;
+    double mutateChance = 0.5;
     auto selectedTerm = "standard";
     bool toPrint = false;
     map<string, myTerm> termConditions;
@@ -224,7 +232,7 @@ int main(int argc, char *argv[]) {
         return iteration > iterCount;
     };
     termConditions["custom"] = [](auto a, auto b, int iterCount, int iteration) {
-        if (findStandardDeviation(b) <= 0.3){
+        if (findStandardDeviation(b) <= 306000){
             cout << "deviation: "<< findStandardDeviation(b) << endl;
             return true;
         } else{
@@ -233,7 +241,7 @@ int main(int argc, char *argv[]) {
     };
 
 
-    population_t population = populate(10000, 100+(22202%10)*2);
+    population_t population = populate(1000, 100+(22202%10)*2);
     try {
         for (int i = 1; i < argc; i += 2) {
             if (i + 1 != argc) {
