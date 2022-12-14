@@ -1,3 +1,4 @@
 C:/Users/Cukier/CLionProjects/nai/cmake-build-debug/CMakeFiles/lab7.dir
+C:/Users/Cukier/CLionProjects/nai/cmake-build-debug/CMakeFiles/lab8.dir
 C:/Users/Cukier/CLionProjects/nai/cmake-build-debug/CMakeFiles/edit_cache.dir
 C:/Users/Cukier/CLionProjects/nai/cmake-build-debug/CMakeFiles/rebuild_cache.dir

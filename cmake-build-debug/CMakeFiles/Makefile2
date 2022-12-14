@@ -63,6 +63,7 @@ CMAKE_BINARY_DIR = C:\Users\Cukier\CLionProjects\nai\cmake-build-debug
 
 # The main recursive "all" target.
 all: CMakeFiles/lab7.dir/all
+all: CMakeFiles/lab8.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -71,6 +72,7 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/lab7.dir/clean
+clean: CMakeFiles/lab8.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -80,12 +82,12 @@ clean: CMakeFiles/lab7.dir/clean
 CMakeFiles/lab7.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\lab7.dir\build.make CMakeFiles/lab7.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\lab7.dir\build.make CMakeFiles/lab7.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\Cukier\CLionProjects\nai\cmake-build-debug\CMakeFiles --progress-num=1,2 "Built target lab7"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\Cukier\CLionProjects\nai\cmake-build-debug\CMakeFiles --progress-num=1,2,3 "Built target lab7"
 .PHONY : CMakeFiles/lab7.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/lab7.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Cukier\CLionProjects\nai\cmake-build-debug\CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Cukier\CLionProjects\nai\cmake-build-debug\CMakeFiles 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/lab7.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Cukier\CLionProjects\nai\cmake-build-debug\CMakeFiles 0
 .PHONY : CMakeFiles/lab7.dir/rule
@@ -98,6 +100,32 @@ lab7: CMakeFiles/lab7.dir/rule
 CMakeFiles/lab7.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\lab7.dir\build.make CMakeFiles/lab7.dir/clean
 .PHONY : CMakeFiles/lab7.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/lab8.dir
+
+# All Build rule for target.
+CMakeFiles/lab8.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\lab8.dir\build.make CMakeFiles/lab8.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\lab8.dir\build.make CMakeFiles/lab8.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\Cukier\CLionProjects\nai\cmake-build-debug\CMakeFiles --progress-num=4,5 "Built target lab8"
+.PHONY : CMakeFiles/lab8.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/lab8.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Cukier\CLionProjects\nai\cmake-build-debug\CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/lab8.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Cukier\CLionProjects\nai\cmake-build-debug\CMakeFiles 0
+.PHONY : CMakeFiles/lab8.dir/rule
+
+# Convenience name for target.
+lab8: CMakeFiles/lab8.dir/rule
+.PHONY : lab8
+
+# clean rule for target.
+CMakeFiles/lab8.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\lab8.dir\build.make CMakeFiles/lab8.dir/clean
+.PHONY : CMakeFiles/lab8.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

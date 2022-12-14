@@ -3,7 +3,8 @@ project(nai)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(lab7 lab7/lab7.cpp)
+add_executable(lab7 lab7/lab7.cpp lab8/lab8.cpp lab8/lab8.h)
+add_executable(lab8 lab8/lab8.cpp)
 
 # UWAGA: TU ZAMIEN KATALOG W KTORYM JEST OPENCV!!!!
 set(OpenCV_DIR "C:\\Users\\Cukier\\Documents\\repo\\opencv-4.x\\cmake-build-release")

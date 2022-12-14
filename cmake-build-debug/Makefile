@@ -128,6 +128,19 @@ lab7/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\lab7.dir\build.make CMakeFiles/lab7.dir/build
 .PHONY : lab7/fast
 
+#=============================================================================
+# Target rules for targets named lab8
+
+# Build rule for target.
+lab8: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 lab8
+.PHONY : lab8
+
+# fast build rule for target.
+lab8/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\lab8.dir\build.make CMakeFiles/lab8.dir/build
+.PHONY : lab8/fast
+
 lab7/lab7.obj: lab7/lab7.cpp.obj
 .PHONY : lab7/lab7.obj
 
@@ -152,6 +165,33 @@ lab7/lab7.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\lab7.dir\build.make CMakeFiles/lab7.dir/lab7/lab7.cpp.s
 .PHONY : lab7/lab7.cpp.s
 
+lab8/lab8.obj: lab8/lab8.cpp.obj
+.PHONY : lab8/lab8.obj
+
+# target to build an object file
+lab8/lab8.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\lab7.dir\build.make CMakeFiles/lab7.dir/lab8/lab8.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\lab8.dir\build.make CMakeFiles/lab8.dir/lab8/lab8.cpp.obj
+.PHONY : lab8/lab8.cpp.obj
+
+lab8/lab8.i: lab8/lab8.cpp.i
+.PHONY : lab8/lab8.i
+
+# target to preprocess a source file
+lab8/lab8.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\lab7.dir\build.make CMakeFiles/lab7.dir/lab8/lab8.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\lab8.dir\build.make CMakeFiles/lab8.dir/lab8/lab8.cpp.i
+.PHONY : lab8/lab8.cpp.i
+
+lab8/lab8.s: lab8/lab8.cpp.s
+.PHONY : lab8/lab8.s
+
+# target to generate assembly for a file
+lab8/lab8.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\lab7.dir\build.make CMakeFiles/lab7.dir/lab8/lab8.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\lab8.dir\build.make CMakeFiles/lab8.dir/lab8/lab8.cpp.s
+.PHONY : lab8/lab8.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -161,9 +201,13 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... lab7
+	@echo ... lab8
 	@echo ... lab7/lab7.obj
 	@echo ... lab7/lab7.i
 	@echo ... lab7/lab7.s
+	@echo ... lab8/lab8.obj
+	@echo ... lab8/lab8.i
+	@echo ... lab8/lab8.s
 .PHONY : help
 
 
